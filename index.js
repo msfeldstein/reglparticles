@@ -8,13 +8,7 @@ const startTime = Date.now()
 const posData = require('./initializers/position')(SIZE)
 const velData = require('./initializers/velocity')(SIZE)
 
-const posTex = regl.texture({
-  width: SIZE,
-  height: SIZE,
-  data: posData
-})
-
-const posPingPong = (Array(2)).fill().map(() =>
+const posFbos = (Array(2)).fill().map(() =>
   regl.framebuffer({
     color: regl.texture({
       radius: SIZE,
@@ -29,10 +23,15 @@ const posPingPong = (Array(2)).fill().map(() =>
 
 const stepPositions = regl({
   primitive: 'triangles',
-  framebuffer: ({tick}) => posPingPong[(tick + 1) % 2],
+  framebuffer: ({tick}) => posFbos[(tick + 1) % 2],
   vert: `
     precision mediump float;
-    
+    attribute vec2 position;
+    varying vec2 uv;
+    void main() {
+      uv = position * 0.5 + 0.5;
+      gl_Position = vec4(position, 0, 1);
+    }
   `,
   
   frag: `
@@ -41,23 +40,16 @@ const stepPositions = regl({
     varying vec2 uv;
     void main() {
       vec4 prevPos = texture2D(prevPosSampler, uv);
-      gl_FragColor = prevPos + vec4(0.001, 0.0, 0.0, 0.0);
+      gl_FragColor = prevPos + vec4(0.006, 0.0, 0.0, 0.0);
     }
   `,
-  vert: `
-    attribute vec2 position;
-    varying vec2 uv;
-    void main() {
-      uv = position * 0.5 + 0.5;
-      gl_Position = vec4(position, 0, 1);
-    }`,
 
   attributes: {
     position: [[-1, -1], [-1, 1], [1, 1], [-1, -1], [1, 1], [1, -1]]
   },
   
   uniforms: {
-    prevPosSampler: ({tick}) => posPingPong[tick % 2],
+    prevPosSampler: ({tick}) => posFbos[tick % 2],
   },
 
   count: 6
@@ -98,7 +90,7 @@ const drawPoints = regl({
   uniforms: {
     // This defines the color of the triangle to be a dynamic variable
     time: regl.prop('time'),
-    posData: ({tick}) => posPingPong[tick % 2],
+    posData: ({tick}) => posFbos[tick % 2],
     dataSize: regl.prop('dataSize')
   },
 

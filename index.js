@@ -1,4 +1,11 @@
+const fit = require('canvas-fit')
+const canvas = document.body.appendChild(document.createElement('canvas'))
+const camera = require('canvas-orbit-camera')(canvas)
+window.addEventListener('resize', fit(canvas, window, window.devicePixelRatio), false)
+
 const regl = require('regl')({
+  canvas: canvas,
+  pixelRatio: window.devicePixelRatio,
   extensions: ['OES_texture_float'],
   attributes: {
     premultipliedAlpha: false
@@ -6,7 +13,7 @@ const regl = require('regl')({
 })
 const datastep = require('./datastep')
 
-const SIZE = 256;
+const SIZE = 1024;
 var points = new Array(SIZE * SIZE).fill().map((x, i) => i)
 const startTime = Date.now()
 const posData = require('./initializers/position')(SIZE)
@@ -50,6 +57,7 @@ const stepVelocities = datastep(regl, velFbos, `
   void main() {
     vec4 prevVel = texture2D(prevData, uv);
     vec4 pos = texture2D(posData, uv);
+    
     vec2 delta = attractor - pos.xy;
     float dist = length(delta);
     float timeStep = 1.0 / 16.66;
@@ -72,21 +80,34 @@ const stepPositions = datastep(regl, posFbos, `
   uniform sampler2D velData;
   varying vec2 uv;
   void main() {
-    vec4 prevPos = texture2D(prevData, uv);
-    vec4 vel = texture2D(velData, uv);
-    gl_FragColor = prevPos + vel;
+    vec4 pos = texture2D(prevData, uv);
+    vec4 prevVel = texture2D(velData, uv);
+    float sigma = 4.0;
+    float rho = 10.0;
+    float beta = 0.30;
+    float interval = prevVel.w;
+    float x = pos.x;
+    float y = pos.y;
+    float z = pos.z;
+    float newx = x - sigma * x * interval + sigma * y * interval;
+    float newy = y + rho * x * interval - y * interval - pos.z * x * interval;
+    float newz = z - beta * z * interval + (x * y) * interval;
+    
+    gl_FragColor = vec4(newx, newy, newz, 1.0);
   }
 `, {
   velData: ({tick}) => velFbos[(tick) % 2]
 })
 
-const drawPoints = require('./steps/drawPoints')(regl, points, posFbos)
+const drawPoints = require('./steps/drawPoints')(
+  regl, points, posFbos, camera)
 
 regl.frame(({time}) => {
   regl.clear({
     color: [0, 0, 0, 255],
     depth: 1
   })
+  camera.tick()
   stepVelocities({
     
   })
@@ -99,7 +120,7 @@ regl.frame(({time}) => {
   })
 })
 
-window.addEventListener('mousemove', function(e) {
-  mouseX = e.clientX / window.innerWidth
-  mouseY = 1 - e.clientY / window.innerHeight
-})
+// window.addEventListener('mousemove', function(e) {
+//   mouseX = e.clientX / window.innerWidth
+//   mouseY = 1 - e.clientY / window.innerHeight
+// })

@@ -11,7 +11,8 @@ module.exports = function(SIZE, range) {
       return 0
     } else if (space == 3){
       // return Math.floor(Math.random() * 5) / 5 + Math.random() * .05;
-      return Math.random() * 0.95 + 0.05;
+      // strange attractor interval
+      return 0.005 + 0.1 * Math.random()
     }
   })
   return data

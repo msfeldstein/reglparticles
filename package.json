@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "publish": "browserify index.js > dist/build.js && gh-pages -d dist"
+  },
   "dependencies": {
+    "browserify": "^14.3.0",
     "budo": "^10.0.3",
     "canvas-fit": "^1.5.0",
     "canvas-orbit-camera": "^1.0.2",
+    "gh-pages": "^1.0.0",
     "gl-mat4": "^1.1.4",
     "key-pressed": "^0.0.1",
     "mouse-position": "^2.0.1",

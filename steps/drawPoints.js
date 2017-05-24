@@ -1,5 +1,5 @@
 const mat4 = require('gl-mat4')
-
+const out = mat4.create()
 module.exports = function(regl, points, positionFbos, camera) {
   return regl({
     primitive: 'points',

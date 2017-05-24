@@ -1214,7 +1214,7 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.3.6"
 
-key-pressed@0.0.1:
+key-pressed@0.0.1, key-pressed@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/key-pressed/-/key-pressed-0.0.1.tgz#d682fb4c7c1042929a5bc88636728ca71220debb"
   dependencies:
@@ -1379,9 +1379,21 @@ mouse-position@^1.0.0:
   dependencies:
     events "^1.0.1"
 
+mouse-position@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/mouse-position/-/mouse-position-2.0.1.tgz#3e9ca492acc78ecd0d9d80a44491d12aae0c8a67"
+  dependencies:
+    events "^1.0.1"
+
 mouse-pressed@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/mouse-pressed/-/mouse-pressed-0.0.1.tgz#1e62ae992d7966177e5ffc49c839128e1b27b7bb"
+  dependencies:
+    events "^1.0.1"
+
+mouse-pressed@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mouse-pressed/-/mouse-pressed-1.0.0.tgz#c01e14180f8da1205073995939e4f96fef227e32"
   dependencies:
     events "^1.0.1"
 
@@ -1492,6 +1504,12 @@ options@>=0.0.5:
 orbit-camera@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/orbit-camera/-/orbit-camera-0.0.3.tgz#4f949d1758fb967ec2a678fdfac4cbbdca57a06f"
+  dependencies:
+    gl-matrix "^2.2.0"
+
+orbit-camera@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/orbit-camera/-/orbit-camera-1.0.0.tgz#8da1615ab5c1e777a2bf65b95e5cd1f517f1fc31"
   dependencies:
     gl-matrix "^2.2.0"
 

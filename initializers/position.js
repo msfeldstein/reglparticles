@@ -17,7 +17,7 @@ module.exports = function(SIZE) {
       return Math.random();
     } else if (space == 3) {
       // w
-      return 1.0
+      return 0.005 + Math.random() * 0.1
     }
     return 0
   })

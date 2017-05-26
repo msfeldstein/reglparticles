@@ -34,13 +34,14 @@ module.exports = function(regl, points, positionFbos, camera) {
       uniform mat4 view;
       void main() {
         float offset = index / 10.0;
-        gl_PointSize = 1.0;
+        
         vec2 posDataPosition = vec2(
           mod(index, dataSize) / dataSize,
           floor(index / dataSize) / dataSize
         );
         vec4 pos = texture2D(posData, posDataPosition);
         gl_Position = proj * view * model * vec4(-1.0 + pos.x * 2.0, -1.0 + pos.y * 2.0, pos.z, 1.0);
+        gl_PointSize = 1.0;
         vIndex = index;
       }`,
 

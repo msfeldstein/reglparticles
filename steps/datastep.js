@@ -1,9 +1,14 @@
 // Step forward a ste of fbos using a fragment shader with
 // previous data in a 'prevData' sampler
-module.exports = function(regl, fbos, shader, uniforms) {
+module.exports = function(regl, opts, shader, uniforms) {
+  const inputs = {}
+  for (let key in opts.inputs) {
+    inputs[key] = ({tick}) => opts.inputs[key][tick % 2]
+  }
+  console.log(inputs)
   return regl({
     primitive: 'triangles',
-    framebuffer: ({tick}) => fbos[(tick + 1) % 2],
+    framebuffer: ({tick}) => opts.output[(tick + 1) % 2],
     vert: `
       precision mediump float;
       attribute vec2 position;
@@ -20,9 +25,7 @@ module.exports = function(regl, fbos, shader, uniforms) {
       position: [[-1, -1], [-1, 1], [1, 1], [-1, -1], [1, 1], [1, -1]]
     },
     
-    uniforms: Object.assign({
-      prevData: ({tick}) => fbos[tick % 2],
-    }, uniforms),
+    uniforms: Object.assign(inputs, uniforms),
 
     count: 6
   })

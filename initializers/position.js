@@ -6,18 +6,18 @@ module.exports = function(SIZE) {
       // x
       let x = index % SIZE
       x = x / SIZE
-      return x
+      return Math.random()
     } else if (space == 1) {
       // y
       let y = Math.floor(index / SIZE)
       y = y / SIZE
-      return y
+      return Math.random()
     } else if (space == 2) {
       // z
-      return Math.random();
+      return 0;//Math.random();
     } else if (space == 3) {
       // w
-      return 0.005 + Math.random() * 0.1
+      return 0.005 + Math.random()
     }
     return 0
   })

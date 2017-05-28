@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "budo index.js -o -l",
     "publish": "browserify index.js > dist/build.js && gh-pages -d dist"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "key-pressed": "^0.0.1",
     "mouse-position": "^2.0.1",
     "mouse-pressed": "^1.0.0",
+    "noisejs": "^2.1.0",
     "orbit-camera": "^1.0.0",
     "regl": "^1.3.0",
     "scroll-speed": "^1.0.0"

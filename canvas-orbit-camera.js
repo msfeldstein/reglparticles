@@ -27,7 +27,7 @@ function attachCamera(canvas, opts) {
   //   , [0, 1, 0]
   // )
   var camera = createCamera(
-      [0, 0, 0.5]
+      [0, 0, 3]
     , [0, 0, 0]
     , [0, 1, 0]
   )
@@ -67,12 +67,6 @@ function attachCamera(canvas, opts) {
       camera.distance *= Math.exp(d / height)
     }
     
-    // function anim() {
-    //   requestAnimationFrame(anim)
-    //   camera.distance -= .00001
-    // }
-    // anim()
-
     scroll.flush()
     mpos.flush()
   }

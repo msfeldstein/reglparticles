@@ -2,7 +2,7 @@ const ParticleSystem = require('./ParticleSystem')
 const fit = require('canvas-fit')
 const canvas = document.body.appendChild(document.createElement('canvas'))
 
-const live = true
+const live = false
 if (live) {
   window.addEventListener('resize', fit(canvas, window, window.devicePixelRatio), false)
 } else {
@@ -40,8 +40,8 @@ const tendrils = new ParticleSystem(regl, {
   size: SIZE,
   camera: camera,
   buffers: {
-    positions: require('./initializers/eye-tendrils-position')(SIZE),
-    velocities: require('./initializers/eye-tendrils-position')(SIZE),
+    positions: require('./initializers/eye-tendrils-position-straight')(SIZE),
+    velocities: require('./initializers/eye-tendrils-position-straight')(SIZE),
   },
   steps: [
     {

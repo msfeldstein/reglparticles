@@ -14,7 +14,7 @@ if (live) {
 const camera = require('./canvas-orbit-camera')(canvas)
 
 const IGCapture = require('./igcapture')
-const capturer = new IGCapture(canvas, live)
+const capturer = new IGCapture(canvas, true)
 const regl = require('regl')({
   canvas: canvas,
   // We need float textures to store position data in a texture.
@@ -28,18 +28,30 @@ const regl = require('regl')({
 // This should be a power of two since we're using a texture to hold the data
 // The actual amount of points is SIZE squared
 const SIZE = 512;
-const system = new ParticleSystem(regl, {
-  size: SIZE,
-  camera: camera,
-  initialPositions: require('./initializers/eye-ring-position')(SIZE),
-  positionStep : require('./steps/rings'),
-  drawStep: require('./steps/draw-eye-ring')
-})
+// const system = new ParticleSystem(regl, {
+//   size: SIZE,
+//   camera: camera,
+//   initialPositions: require('./initializers/eye-ring-position')(SIZE),
+//   positionStep : require('./steps/rings'),
+//   drawStep: require('./steps/draw-eye-ring')
+// })
 
 const tendrils = new ParticleSystem(regl, {
   size: SIZE,
   camera: camera,
-  initialPositions: require('./initializers/eye-tendrils-position')(SIZE),
+  buffers: {
+    positions: require('./initializers/eye-tendrils-position')(SIZE),
+    velocities: require('./initializers/eye-tendrils-position')(SIZE),
+  },
+  steps: [
+    {
+      src: require('./steps/eye-tendrils'),
+      output: 'positions',
+      inputs: [
+        'velocities'
+      ]
+    }
+  ]
   // positionStep : require('./steps/eye-tendrils')
 })
 

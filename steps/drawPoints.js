@@ -43,7 +43,8 @@ module.exports = function(regl, opts) {
           floor(index / dataSize) / dataSize
         );
         vec4 pos = texture2D(positions, posDataPosition);
-        gl_Position = proj * view * model * vec4(-1.0 + pos.x * 2.0, -1.0 + pos.y * 2.0, pos.z, 1.0);
+        vec4 mvpPos = proj * view * vec4(pos.x, pos.y, pos.z, 1.0);
+        gl_Position = mvpPos;
         gl_PointSize = 1.0;
         vIndex = index;
       }`,

@@ -8,46 +8,34 @@ class ParticleSystem {
     this.camera = opts.camera
     this.size = opts.size || 128
     this.points = new Array(this.size * this.size).fill().map((x, i) => i)
-    const posData = opts.initialPositions || RandomInitializer(this.size)
-    const velData = opts.initialVelocities || RandomInitializer(this.size)
-    this.posFbos = PingPongBuffer(regl, posData, this.size)
-    this.velFbos = PingPongBuffer(regl, velData, this.size)
-    if (opts.velocityStep) {
-      this.stepVelocities = new datastep(regl, {
-        output: this.velFbos,
-        inputs: {
-          positions: this.posFbos,
-          velocities: this.velFbos
-        }
-      }, opts.velocityStep)  
+    this.fbos = {}
+    for (let name in opts.buffers) {
+      let bufferData = opts.buffers[name]
+      if (bufferData === true) {
+        bufferData = RandomInitializer(this.size)
+      }
+      this.fbos[name] = PingPongBuffer(regl, bufferData, this.size)
     }
-    
-    if (opts.positionStep) {
-      this.stepPositions = datastep(regl, {
-        output: this.posFbos,
-        inputs: {
-          positions: this.posFbos,
-          velocities: this.velFbos
-        }
-      }, opts.positionStep)  
-    }
+    this.stepPrograms = []
+    opts.steps.forEach((step) => {
+      this.stepPrograms.push(new datastep(regl, {
+        output: this.fbos[step.output],
+        inputs: this.fbos
+      }, step.src))
+    })
     
     // Draw the points to the screen using the camera as a projection
     this.drawPoints = require('./steps/drawPoints')(regl, {
       points: this.points,
-      positions: this.posFbos,
+      positions: this.fbos.positions,
       camera: this.camera,
       drawStep: opts.drawStep
     })
   }
   
   draw() {
-    if (this.stepVelocities){
-      this.stepVelocities({})  
-    }
-    if (this.stepPositions) {
-      this.stepPositions({})  
-    }
+    this.stepPrograms.forEach((f) => f({}))
+    
     this.drawPoints({
       time: this.regl.now(),
       dataSize: this.size

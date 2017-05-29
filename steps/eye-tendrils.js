@@ -7,8 +7,8 @@ module.exports = `
   void main() {
     vec4 pos = texture2D(positions, uv);
     vec4 vel = texture2D(velocities, uv);
-    float x = vel.r * cos(vel.g * 3.14159 * 2.0 + time / 10.0 * vel.g) + 1.0;
-    float y = vel.r * sin(vel.g * 3.14159 * 2.0 + time / 10.0 * vel.g) + 1.0;
-    gl_FragColor = vec4(x, y, 0.0, 1.0);
+    float x = vel.x + sin(cos(uv.x * 100.32) * 132.3 + uv.y + time * uv.y) * 0.01;
+    float y = vel.y + sin(cos(uv.y * 100.32) * 421.3 + uv.x * 103.03 + time * uv.x) * 0.01;
+    gl_FragColor = vec4(x, y, vel.z, 1.0);
   }
 `

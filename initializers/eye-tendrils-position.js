@@ -13,9 +13,10 @@ module.exports = function(SIZE) {
   for (let t = 0; t < numTendrils / 2; t++) {
     let rootTheta = t / (numTendrils / 2) * 2 * Math.PI
     let walkSeed = Math.random() * 3.23
+    let lengthOffset = Math.random() * 0.4 - 0.3
     for (let s = 0; s < pointsPerTendril; s++) {
       let tendrilPos = s / pointsPerTendril
-      let r = 1 + tendrilPos * tendrilLength
+      let r = 1 + (1.0 + lengthOffset) * tendrilPos * tendrilLength 
       let theta = rootTheta + tendrilPos * 
         (noise.simplex2(walkSeed, tendrilPos) / 9 +
         noise.simplex2(walkSeed, tendrilPos * 2) / 12

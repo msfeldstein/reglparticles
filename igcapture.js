@@ -16,12 +16,17 @@ function pad(n, width, z) {
 }
 
 module.exports = function(canvas, noop) {
+  window.ig = this
   this.canvas = canvas
   this.zip = new JSZip()
   this.zip.file('_run_me_to_create_mp4', command, {unixPermissions: "755"})
   this.frames = []
-  this.framesLeft = 24 * 28;
+  this.framesLeft = 24 * 14;
   this.frameNumber = 1;
+  
+  this.begin = function() {
+    noop = false
+  }
 
   this.frameReady = function() {
     if (noop) return

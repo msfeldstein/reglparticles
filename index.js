@@ -2,7 +2,7 @@ const ParticleSystem = require('./ParticleSystem')
 const fit = require('canvas-fit')
 const canvas = document.body.appendChild(document.createElement('canvas'))
 
-const live = false
+const live = true
 if (live) {
   window.addEventListener('resize', fit(canvas, window, window.devicePixelRatio), false)
 } else {

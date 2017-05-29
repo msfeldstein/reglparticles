@@ -1,6 +1,9 @@
 const mat4 = require('gl-mat4')
 const out = mat4.create()
-module.exports = function(regl, points, positionFbos, camera) {
+module.exports = function(regl, opts) {
+  const camera = opts.camera
+  const points = opts.points
+  const positionFbos = opts.positions
   return regl({
     primitive: 'points',
     blend: {
@@ -19,14 +22,14 @@ module.exports = function(regl, points, positionFbos, camera) {
       uniform vec4 color;
       varying float vIndex;
       void main() {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 0.21);
+        gl_FragColor = vec4(192.0 / 255.0, 161.0 / 255.0, 94.0 / 255.0, 0.21);
       }`,
 
-    vert: `
+    vert: opts.drawStep || `
       precision mediump float;
       attribute float index;
       uniform float time;
-      uniform sampler2D posData;
+      uniform sampler2D positions;
       uniform float dataSize;
       varying float vIndex;
       uniform mat4 proj;
@@ -39,7 +42,7 @@ module.exports = function(regl, points, positionFbos, camera) {
           mod(index, dataSize) / dataSize,
           floor(index / dataSize) / dataSize
         );
-        vec4 pos = texture2D(posData, posDataPosition);
+        vec4 pos = texture2D(positions, posDataPosition);
         gl_Position = proj * view * model * vec4(-1.0 + pos.x * 2.0, -1.0 + pos.y * 2.0, pos.z, 1.0);
         gl_PointSize = 1.0;
         vIndex = index;
@@ -52,7 +55,7 @@ module.exports = function(regl, points, positionFbos, camera) {
     uniforms: {
       // This defines the color of the triangle to be a dynamic variable
       time: regl.prop('time'),
-      posData: ({tick}) => positionFbos[tick % 2],
+      positions: ({tick}) => positionFbos[tick % 2],
       dataSize: regl.prop('dataSize'),
       proj: ({viewportWidth, viewportHeight}) =>
         mat4.perspective([],

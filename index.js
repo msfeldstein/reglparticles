@@ -1,7 +1,7 @@
 const ParticleSystem = require('./ParticleSystem')
 const fit = require('canvas-fit')
 const canvas = document.body.appendChild(document.createElement('canvas'))
-const camera = require('./canvas-orbit-camera')(canvas)
+
 const live = true
 if (live) {
   window.addEventListener('resize', fit(canvas, window, window.devicePixelRatio), false)
@@ -11,17 +11,17 @@ if (live) {
   canvas.style.width = '1080px'
   canvas.style.height = '1080px'
 }
+const camera = require('./canvas-orbit-camera')(canvas)
 
 const IGCapture = require('./igcapture')
 const capturer = new IGCapture(canvas, live)
 const regl = require('regl')({
   canvas: canvas,
-  pixelRatio: 2,
   // We need float textures to store position data in a texture.
   // Float textures will be 0.0-1.0 instead of byte textures which are 0-255.
   extensions: ['OES_texture_float'],
   attributes: {
-    premultipliedAlpha: false
+    premultipliedAlpha: true
   }
 })
 
@@ -29,13 +29,18 @@ const regl = require('regl')({
 // The actual amount of points is SIZE squared
 const SIZE = 512;
 const system = new ParticleSystem(regl, {
-  size: 512,
+  size: SIZE,
   camera: camera,
-  initialPositions: require('./initializers/rings-position')(SIZE),
-  initialVelocities: require('./initializers/rings-position')(SIZE, 0),
-  velocityStep : require('./steps/rings'),
-  positionStep : require('./steps/rings')
-  
+  initialPositions: require('./initializers/eye-ring-position')(SIZE),
+  positionStep : require('./steps/rings'),
+  drawStep: require('./steps/draw-eye-ring')
+})
+
+const tendrils = new ParticleSystem(regl, {
+  size: SIZE,
+  camera: camera,
+  initialPositions: require('./initializers/eye-tendrils-position')(SIZE),
+  // positionStep : require('./steps/eye-tendrils')
 })
 
 
@@ -46,6 +51,6 @@ regl.frame(({time}) => {
     depth: 1
   })
   camera.tick()
-  system.draw()
+  tendrils.draw()
   capturer.frameReady()
 })

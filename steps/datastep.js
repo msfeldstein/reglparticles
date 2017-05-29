@@ -10,7 +10,7 @@ module.exports = function(regl, opts, shader, uniforms) {
 
   return regl({
     primitive: 'triangles',
-    framebuffer: ({tick}) => opts.output[(tick + 1) % 2],
+    framebuffer: ({tick}) => opts.output && opts.output[(tick + 1) % 2],
     vert: `
       precision mediump float;
       attribute vec2 position;

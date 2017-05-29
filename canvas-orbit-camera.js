@@ -42,6 +42,10 @@ function attachCamera(canvas, opts) {
     var height = canvas.height
     var width = canvas.width
 
+    mpos.x = mpos[0]
+    mpos.y = mpos[1]
+    mpos.prevX = mpos.prev[0]
+    mpos.prevY = mpos.prev[1]
     if (opts.rotate && mbut.left && !ctrl && !alt) {
       camera.rotate(
           [ mpos.x / width - 0.5, mpos.y / height - 0.5 ]

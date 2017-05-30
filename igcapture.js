@@ -21,15 +21,25 @@ module.exports = function(canvas, noop) {
   this.zip = new JSZip()
   this.zip.file('_run_me_to_create_mp4', command, {unixPermissions: "755"})
   this.frames = []
-  this.framesLeft = 24 * 14;
+  this.framesLeft = 24 * 30;
   this.frameNumber = 1;
-  
+  this.record = false;
+  window.addEventListener('keydown', (e) => {
+    if (e.keyCode == 82) {
+      if (this.record) {
+        this.record = false;
+        this.download()
+      } else {
+        this.record = true
+      }
+    }
+  })
   this.begin = function() {
     noop = false
   }
 
   this.frameReady = function() {
-    if (noop) return
+    if (!this.record) return
     if (this.framesLeft > 0) {
       this.zip.file(`${pad(this.frameNumber, 4)}.png`, atob(this.canvas.toDataURL().substr(22)), {binary: true})
     }

@@ -1,7 +1,8 @@
 const ParticleSystem = require('./ParticleSystem')
+const TWEEN = require('tween.js')
 const fit = require('canvas-fit')
 const canvas = document.body.appendChild(document.createElement('canvas'))
-
+const Fade = require('./fade')
 const live = true
 if (live) {
   window.addEventListener('resize', fit(canvas, window, window.devicePixelRatio), false)
@@ -21,9 +22,12 @@ const regl = require('regl')({
   // Float textures will be 0.0-1.0 instead of byte textures which are 0-255.
   extensions: ['OES_texture_float'],
   attributes: {
+    preserveDrawingBuffer: true,
     premultipliedAlpha: true
   }
 })
+const fadeProgram = Fade(regl)
+
 
 // This should be a power of two since we're using a texture to hold the data
 // The actual amount of points is SIZE squared
@@ -55,14 +59,22 @@ const tendrils = new ParticleSystem(regl, {
   // positionStep : require('./steps/eye-tendrils')
 })
 
+window.addEventListener('keydown', (e) => {
+  console.log(e.keyCode)
+})
 
-
+regl.clear({
+  color: [0, 0, 0, 255],
+  depth: 1
+})
 regl.frame(({time}) => {
-  regl.clear({
-    color: [0, 0, 0, 255],
-    depth: 1
-  })
+  TWEEN.update()
+  // regl.clear({
+  //   color: [0, 0, 0, 255],
+  //   depth: 1
+  // })
   camera.tick()
+  fadeProgram()
   tendrils.draw()
   capturer.frameReady()
 })

@@ -17,6 +17,9 @@ module.exports = function(regl, opts) {
         alpha: 'add'
       },
     },
+    depth: {
+      enable: false
+    },
     frag: `
       precision mediump float;
       uniform vec4 color;

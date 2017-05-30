@@ -3,6 +3,7 @@ const noise = new Noise.Noise();
 window.Noise = Noise
 const numTendrils = 256 // Must be power of two
 const tendrilLength = 1
+const irisRadius = 0.3;
 
 const rand = (min, max) => min + (max - min) * Math.random()
 module.exports = function(SIZE) {
@@ -16,7 +17,7 @@ module.exports = function(SIZE) {
     let lengthOffset = Math.random() * 0.4 - 0.3
     for (let s = 0; s < pointsPerTendril; s++) {
       let tendrilPos = s / pointsPerTendril
-      let r = 1 + (1.0 + lengthOffset) * tendrilPos * tendrilLength 
+      let r = irisRadius + (1.0 + lengthOffset) * tendrilPos * tendrilLength 
       let theta = rootTheta + tendrilPos * 
         (noise.simplex2(walkSeed, tendrilPos) / 9 +
         noise.simplex2(walkSeed, tendrilPos * 2) / 12

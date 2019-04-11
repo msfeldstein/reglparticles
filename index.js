@@ -42,7 +42,7 @@ const blitProgram = Blit(regl, fbo)
 
 // This should be a power of two since we're using a texture to hold the data
 // The actual amount of points is SIZE squared
-const SIZE = 16;
+const SIZE = 512;
 
 const initialState = require('./initializers/blackhole/initialize')(SIZE, 1)
 

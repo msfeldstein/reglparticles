@@ -25,7 +25,7 @@ module.exports = function(regl, opts) {
       uniform vec4 color;
       varying float vIndex;
       void main() {
-        gl_FragColor = vec4(192.0 / 255.0, 161.0 / 255.0, 94.0 / 255.0, 0.21);
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 0.0001);
       }`,
 
     vert: opts.drawStep || `

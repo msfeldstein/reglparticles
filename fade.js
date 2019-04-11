@@ -14,7 +14,7 @@ module.exports = function(regl, amt) {
     frag: `
       precision mediump float;
       void main() {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 0.01);
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 0.001);
       }
     `,
     

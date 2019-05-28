@@ -41,10 +41,6 @@ class ParticleSystem {
       dataSize: this.size
     })
   }
-  
-  createPingPongBuffer(data) {
-    
-  }
 }
 
 module.exports = ParticleSystem

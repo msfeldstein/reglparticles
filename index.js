@@ -3,9 +3,9 @@ const TWEEN = require('tween.js')
 const Fade = require('./fade')
 const Blit = require('./copy-to-screen')
 
-module.exports = function(canvas) {
-  // const camera = require('./canvas-orbit-camera')(canvas)
-  const camera = require('./auto-rotate-camera')(1)
+const Particles = function(canvas) {
+  const camera = require('./canvas-orbit-camera')(canvas)
+  // const camera = require('./auto-rotate-camera')(1)
 
 
   const regl = require('regl')({
@@ -62,10 +62,10 @@ module.exports = function(canvas) {
 
   regl.frame(({time}) => {
     TWEEN.update()
-    // regl.clear({
-    //   color: [0, 0, 0, 255],
-    //   depth: 1
-    // })
+    regl.clear({
+      color: [0, 0, 0, 255],
+      depth: 1
+    })
     fbo.use(function() {
       camera.tick()
       fadeProgram()
@@ -76,3 +76,12 @@ module.exports = function(canvas) {
   })
 
 }
+const canvas = document.createElement('canvas')
+document.body.appendChild(canvas)
+document.body.style.margin = "0"
+canvas.width = window.innerWidth * 2
+canvas.height = window.innerHeight * 2
+canvas.style.width = window.innerWidth + 'px'
+canvas.style.height = window.innerHeight + 'px'
+Particles(canvas)
+module.exports = Particles

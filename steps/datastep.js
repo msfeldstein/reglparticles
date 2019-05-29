@@ -6,7 +6,10 @@ module.exports = function(regl, opts, shader, uniforms) {
   }
   for (let key in opts.inputs) {
     inputs[key] = ({tick}) => opts.inputs[key][tick % 2]
+    inputs[key + 'Width'] = opts.inputs[key][0].width
+    inputs[key + 'Height'] = opts.inputs[key][0].height
   }
+  console.log(inputs)
 
   return regl({
     primitive: 'triangles',

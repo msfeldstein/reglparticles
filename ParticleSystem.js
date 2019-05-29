@@ -14,7 +14,9 @@ class ParticleSystem {
       if (bufferData === true) {
         bufferData = RandomInitializer(this.size)
       }
-      this.fbos[name] = PingPongBuffer(regl, bufferData, this.size)
+      const size = Math.sqrt(bufferData.length / 4)
+      console.log("Size", size)
+      this.fbos[name] = PingPongBuffer(regl, bufferData, size)
     }
     this.stepPrograms = []
     opts.steps.forEach((step) => {

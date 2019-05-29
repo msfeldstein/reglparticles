@@ -32,22 +32,22 @@ const Particles = function(canvas) {
   // The actual amount of points is SIZE squared
   const SIZE = 512;
 
-  const initialState = require('./initializers/blackhole/initialize')(SIZE, 1)
-
+  const initialState = require('./initializers/chase/initialize')(SIZE, 1)
   const tendrils = new ParticleSystem(regl, {
     size: SIZE,
     camera: camera,
     buffers: {
+      targets: initialState.targets,
       positions: initialState.position,
       velocities: initialState.velocity
     },
     steps: [
       {
-        src: require('./steps/shader-steps/blackhole-gravity'),
-        output: 'velocities',
+        src: require('./steps/shader-steps/chase/fall'),
+        output: 'targets',
       },
       {
-        src: require('./steps/shader-steps/newton'),
+        src: require('./steps/shader-steps/chase/attract-to-targets'),
         output: 'positions',
       }
     ]

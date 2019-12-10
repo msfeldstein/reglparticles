@@ -447,9 +447,10 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-ccapture.js@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ccapture.js/-/ccapture.js-1.0.6.tgz#9d9d591579ae9745c6ef3745210686c946db7fed"
+"ccapture.js@github:aceslowman/ccapture.js#npm-fix":
+  version "1.0.8"
+  uid "98b8046970c2bfbb25f749e732f196e15c3486fd"
+  resolved "https://codeload.github.com/aceslowman/ccapture.js/tar.gz/98b8046970c2bfbb25f749e732f196e15c3486fd"
 
 chalk@^0.5.1:
   version "0.5.1"
@@ -2808,6 +2809,10 @@ watchify@^3.3.1:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
+whammy@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/whammy/-/whammy-0.0.1.tgz#cf4bed9fbaa687eda3f42095ff99bf704b08d01e"
+
 wheel@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/wheel/-/wheel-0.0.0.tgz#04ff9be987175deb1edd4f2482e8b657f32a4165"
@@ -2833,8 +2838,8 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
 ws@^1.1.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.5.tgz#cbd9e6e75e09fc5d2c90015f21f0c40875e0dd51"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"

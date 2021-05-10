@@ -447,9 +447,10 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-ccapture.js@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ccapture.js/-/ccapture.js-1.0.6.tgz#9d9d591579ae9745c6ef3745210686c946db7fed"
+"ccapture.js@github:aceslowman/ccapture.js#npm-fix":
+  version "1.0.8"
+  uid "98b8046970c2bfbb25f749e732f196e15c3486fd"
+  resolved "https://codeload.github.com/aceslowman/ccapture.js/tar.gz/98b8046970c2bfbb25f749e732f196e15c3486fd"
 
 chalk@^0.5.1:
   version "0.5.1"
@@ -1282,8 +1283,8 @@ hoek@2.x.x:
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
 hosted-git-info@^2.1.4:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.4.2.tgz#0076b9f46a270506ddbaaea56496897460612a67"
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
 
 htmlescape@^1.1.0:
   version "1.1.1"
@@ -2807,6 +2808,10 @@ watchify@^3.3.1:
     outpipe "^1.1.0"
     through2 "^2.0.0"
     xtend "^4.0.0"
+
+whammy@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/whammy/-/whammy-0.0.1.tgz#cf4bed9fbaa687eda3f42095ff99bf704b08d01e"
 
 wheel@0.0.0:
   version "0.0.0"

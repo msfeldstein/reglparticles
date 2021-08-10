@@ -447,9 +447,10 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-ccapture.js@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ccapture.js/-/ccapture.js-1.0.6.tgz#9d9d591579ae9745c6ef3745210686c946db7fed"
+"ccapture.js@github:aceslowman/ccapture.js#npm-fix":
+  version "1.0.8"
+  uid "98b8046970c2bfbb25f749e732f196e15c3486fd"
+  resolved "https://codeload.github.com/aceslowman/ccapture.js/tar.gz/98b8046970c2bfbb25f749e732f196e15c3486fd"
 
 chalk@^0.5.1:
   version "0.5.1"
@@ -2009,8 +2010,8 @@ path-is-absolute@^1.0.0, path-is-absolute@^1.0.1:
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
 
 path-parse@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
 
 path-platform@~0.11.15:
   version "0.11.15"
@@ -2807,6 +2808,10 @@ watchify@^3.3.1:
     outpipe "^1.1.0"
     through2 "^2.0.0"
     xtend "^4.0.0"
+
+whammy@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/whammy/-/whammy-0.0.1.tgz#cf4bed9fbaa687eda3f42095ff99bf704b08d01e"
 
 wheel@0.0.0:
   version "0.0.0"
